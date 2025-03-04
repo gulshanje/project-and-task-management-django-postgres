@@ -1,0 +1,76 @@
+{% extends 'project_tracker/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Create Project</h2>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+      
+    
+    <div class="card p-4 shadow-lg">
+    <form method="post">
+      {% csrf_token %}
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <strong>Error!</strong> Please correct the errors below.
+        </div>
+      {% endif %}
+      
+      <div class="mb-3">
+        
+        {% bootstrap_field form.name layout='horizontal' size='lg' help_text='Enter your name' class='form-control' %}
+        
+        {% if form.name.errors %}
+          <div class="text-danger">
+            {% for error in form.name.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {% bootstrap_field form.description row=2 layout='horizontal'  class='form-control' %}
+        {% if form.description.errors %}
+          <div class="text-danger">
+            {% for error in form.description.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {% bootstrap_field form.start_date layout='horizontal' placeholder="YYYY-MM-DD"  class='form-control' %} 
+        {% if form.start_date.errors %}
+          <div class="text-danger">
+            {% for error in form.start_date.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {% bootstrap_field form.end_date layout='horizontal' placeholder="YYYY-MM-DD" class='form-control' %}
+        {% if form.end_date.errors %}
+          <div class="text-danger">
+            {% for error in form.end_date.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="mt-4 text-center">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'project_list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+    </form>
+  </div>
+  </div>
+{% endblock %}

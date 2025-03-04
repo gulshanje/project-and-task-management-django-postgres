@@ -1,0 +1,38 @@
+{% extends 'project_tracker/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if object %}Update{% else %}Create{% endif %} User</h2>
+    <div class="card p-5 shadow-lg">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% bootstrap_field form.username layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.email layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.first_name layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.last_name layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.password1 layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.password2 layout='horizontal'  class='form-control' %}
+        </div>
+        <div class="mb-3">
+            {% bootstrap_field form.designation layout='horizontal'  class='form-control' %}
+        </div>
+        
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{% url 'user_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

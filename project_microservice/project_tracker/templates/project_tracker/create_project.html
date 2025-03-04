@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Project{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Create New Project</h2>
+
+    <!-- Display Errors -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field|title }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="card p-4 shadow-lg">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Project Name</label>
+                <input type="text" id="id_name" name="name" class="form-control" placeholder="Enter project name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_description" class="form-label">Project Description</label>
+                <textarea id="id_description" name="description" class="form-control" rows="3" placeholder="Enter project details"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="id_start_date" class="form-label">Start Date</label>
+                    <input type="text" id="id_start_date" name="start_date" class="form-control" placeholder="DD-MM-YYYY" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_end_date" class="form-label">End Date</label>
+                    <input type="text" id="id_end_date" name="end_date" class="form-control" placeholder="DD-MM-YYYY" required>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-primary">Create Project</button>
+                <a href="{% url 'project_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Include jQuery & jQuery UI -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- jQuery Datepicker -->
+<script>
+    $(document).ready(function() {
+        $("#id_start_date, #id_end_date").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
+
+{% endblock %}
