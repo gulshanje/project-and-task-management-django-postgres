@@ -1,3 +1,5 @@
 venv
 notes.txt
 __pycache__
+.env
+locale
